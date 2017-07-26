@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Jquery Events</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <h1>jQuery Selectors</h1>
+    <dl>
+        <dt>What are your hours?</dt>
+        <dd>We are open 24/7.</dd>
+        <dt>What are your hours?</dt>
+        <dd>We are open 8 days a week.</dd>
+        <dt>What are your hours?</dt>
+        <dd>We are open 23 hours a day.</dd>
+        <dt>What are your hours?</dt>
+        <dd>We are never closed.</dd>
+    </dl>
+    <script>
+    (function(){
+      var dd = $('dd');
+      dd.filter(':nth-child(n+4)').hide(); <!-- filter dd on 3rd item in list down -->
+      //This attaches only one event listener to the definition list
+      //this filter this enter by the dt elememt, one listener instead or one
+      //for each dt
+      $('dl').on('mouseenter', 'dt', function(){
+        $(this)
+          .next()
+          .slideDown(200)
+          .siblings('dd').slideUp(300);
+      });
+    })();
+
+    </script>
+
+<!--
+
+dd.hide();
+dd.show();
+dd.fadeIn();
+dd.slideDown();
+dd.toggle();
+
+//dd.hide();
+//dd.filter(':nth-child(n+4)').hide();  filter dd on 3rd item in list down
+
+
+$('dt').on('mouseenter', function(){
+  /*
+  $(this).next().siblings('dd').hide(); find any siblings and hide them
+  $(this).next().show(); select the next item from the dd and show it
+  */
+
+  /*
+  $(this)
+    .next()
+    .show()
+    .siblings('dd').hide();
+
+  $('dt').on('mouseleave', function(){
+    $(this).next().hide(); select the next item from the dd and hide it
+  });
+
+  $(this)
+    .next()
+    .slideDown(200)
+    .siblings('dd').slideUp(300);
+});
+
+-->
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>jQuery Each and Templatings</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <style type="text/css">
+      .post {
+          padding-left: 3em;
+      }
+
+      h2 {
+        margin-top: 2em;
+      }
+
+      img {
+        height: 300px;
+        width: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>jQuery Each and Templating</h1>
+
+      <script id="blogTemplate" type="jim/template">
+          <div class="post">
+            <h2> {{title}} </h2>
+            <img src='{{thumbnail}}' alt='{{title}}' />
+          </div>
+      </script>
+
+    <script type="text/javascript">
+    (function(){
+      var content = [
+        {
+          title: 'My awesome blog post',
+          thumbnail: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/M82_HST_ACS_2006-14-a-large_web.jpg/1280px-M82_HST_ACS_2006-14-a-large_web.jpg"
+        },
+        {
+          title: 'My second awesome blog post',
+          thumbnail: "https://newevolutiondesigns.com/images/freebies/galaxy-wallpaper-11.jpg"
+        },
+        {
+          title: 'My third awesome blog post',
+          thumbnail: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/M101_hires_STScI-PRC2006-10a.jpg/1280px-M101_hires_STScI-PRC2006-10a.jpg"
+        },
+      ];
+
+      //$.trim($('#blogTemplate').html());
+      var template = $('#blogTemplate').html(),
+        frag = '';
+
+      $.each(content, function(index, obj){
+        //console.log(index, obj);
+        //regular expressions: i = ignore case, g = global
+        frag += template.replace(/{{title}}/ig, obj.title)
+          .replace(/{{thumbnail}}/ig, obj.thumbnail);
+      });
+
+      console.log(frag);
+      $('body').append(frag);
+    })();
+
+    </script>
+  </body>
+</html>

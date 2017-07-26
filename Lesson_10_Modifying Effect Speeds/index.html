@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>jQuery Modifying Effect Speeds</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <h1>jQuery Modifying Effect Speeds</h1>
+    <h2>Reveal</h2>
+    <div class="content">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus
+        velit ut tristique tristique. Sed feugiat massa id lectus sodales, in
+        vehicula augue condimentum. Cras luctus enim erat, pulvinar molestie
+        enim scelerisque a. Cras sit amet libero id tortor rhoncus dapibus.
+        Aliquam quis rhoncus lorem. Sed feugiat, ex ac accumsan tempor, dolor
+        lorem rutrum mi, eu condimentum sapien libero eget massa. Nulla
+        facilisi. Pellentesque id augue justo.
+      </p>
+      <p>
+        Morbi ac nibh mattis, consequat mauris quis, rutrum enim. Mauris
+        finibus libero quis aliquam condimentum. Sed facilisis rutrum nisl nec
+        ullamcorper. Donec aliquam tristique dolor, eu porta velit ullamcorper
+        id. Suspendisse molestie libero commodo, porta mauris at, aliquet
+        arcu. Quisque venenatis tortor non enim pharetra, eget rhoncus velit
+        condimentum. Etiam pulvinar finibus mauris.
+      </p>
+    </div>
+    <script>
+    (function(){
+      $('div.content').hide();
+      //fx speeds
+      console.log($.fx.speeds);
+      $.fx.speeds._default = 2000; // override default fx speed
+      $.fx.speeds._tortoise = 5000;
+      $('h2').on('click', function(){
+        //$(this).next().slideDown(2000); // 2 seconds
+        //$(this).next().slideDown('_default');
+        //$(this).next().slideDown();
+        $(this).next().slideDown('_tortoise');
+        //$(this).next().slideDown('slow'); //600 milliseconds helper methods
+        //$(this).next().slideDown('fast'); //200 milliseconds
+      });
+    })();
+    </script>
+  </body>
+</html>

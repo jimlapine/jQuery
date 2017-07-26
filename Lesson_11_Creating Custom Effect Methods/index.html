@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>jQuery Creating Custom Effect Methods</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <style>
+      /*
+        Stops animation shudder, margin for h2 and p clash
+      */
+      p {margin-top: 0px;}
+    </style>
+    <script>
+      $(document).ready(function(){
+        var $content = $('div.content');
+        jQuery.fn.flash = function( speed, easing, callback ) {
+          $this = $(this);
+          //How do I know animation is complete?
+            $this.slideDown(500, function(){
+            // pass an anonomous function, which get excuted after effect.
+            $this.delay(2000).slideUp(500); // delay for 2 seconds, then slide up
+          });
+
+      		//return this.animate( props, speed, easing, callback );
+      	};
+
+        $content.hide();
+
+        $('h2').on('click', function() {
+          $content.flash();
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>jQuery Creating Custom Effect Methods</h1>
+    <h2>Click Me</h2>
+    <div class="content">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus
+        velit ut tristique tristique. Sed feugiat massa id lectus sodales, in
+        vehicula augue condimentum. Cras luctus enim erat, pulvinar molestie
+        enim scelerisque a. Cras sit amet libero id tortor rhoncus dapibus.
+        Aliquam quis rhoncus lorem. Sed feugiat, ex ac accumsan tempor, dolor
+        lorem rutrum mi, eu condimentum sapien libero eget massa. Nulla
+        facilisi. Pellentesque id augue justo.
+      </p>
+      <p>
+        Morbi ac nibh mattis, consequat mauris quis, rutrum enim. Mauris
+        finibus libero quis aliquam condimentum. Sed facilisis rutrum nisl nec
+        ullamcorper. Donec aliquam tristique dolor, eu porta velit ullamcorper
+        id. Suspendisse molestie libero commodo, porta mauris at, aliquet
+        arcu. Quisque venenatis tortor non enim pharetra, eget rhoncus velit
+        condimentum. Etiam pulvinar finibus mauris.
+      </p>
+    </div>
+  </body>
+</html>

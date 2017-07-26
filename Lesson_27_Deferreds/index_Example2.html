@@ -1,0 +1,50 @@
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+  </script>
+  <title>Deferreds</title>
+  <style>
+    .box {  
+      width: 200px;
+      height: 200px;
+      background: green;
+      display: inline-block;
+      margin-right: 3em;
+    }
+  </style>
+</head>
+<body>
+<h1>Deferreds 3</h1>
+<div id="results"></div>
+
+<div class="box">my box</div>
+<div class="box">my box</div>
+<div class="box">my box</div>
+
+<script type="text/javascript">
+  (function(){
+
+    $('div.box').each(function(i){
+      $(this).delay(1000 * i++).fadeOut(1000);
+    }).promise().done(function(){
+      console.log('all animates are done.');
+    });
+
+    function getJson(search){
+      return $.ajax({ // ajax returns a deferred promise
+        url: "https://jsonplaceholder.typicode.com/comments",
+        data: { postId: search },
+        dataType: "jsonp",
+      })
+    };
+
+    //when both of these are done, run a function
+    $.when( getJson('1'), getJson('2') ).done(function(results1, results2) {
+      console.log(results1);
+      console.log(results2);
+      });
+  })();
+
+</script>
+</body>
+</html>

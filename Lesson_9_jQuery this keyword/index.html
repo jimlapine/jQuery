@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>jQuery this keyword</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <h1>jQuery this keyword</h1>
+    <a href="https://tutsplus.com/">Click Me</a>
+    <script>
+    (function(){
+      console.log(this); //parent window object
+      var obj = {
+        doIt: function(e){
+          e.preventDefault();
+          console.log('do it: ', this);
+        }
+      }
+
+      function doSomething(e){
+        e.preventDefault();
+        //console.log(e);
+        console.log('do something: ',this); //parent window object
+      }
+
+      $('a').on('click', obj.doIt); // this refers to anchor
+      //using proxy method
+      $('a').on('click', $.proxy(obj.doIt, obj)); // this refers to obj
+      //$('a').on('click', doSomething); // this refers to anchor
+      //$('a').on('click', obj.doIt); // this refers to anchor
+      //$('a').on('click', function(e) {
+      //  e.preventDefault();
+      //  obj.doIt(); // this refers to the function do it
+        //obj.doIt.call(this); // this refers to the anchor
+      //});
+    })();
+    </script>
+  </body>
+</html>

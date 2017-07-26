@@ -1,0 +1,71 @@
+<html>
+<head>
+  <title>Say Hello to Handlebars</title>
+  <style>
+    h2 { 
+        color: blue; 
+      }
+    h5 {
+        color:red;
+    }
+    ul li {
+        margin-top: 2em;
+        line-height: .5em;
+        list-style-type: none;
+    }
+    .emphasis {color: green;}
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.js"></script>
+</head>
+<body>
+    <h1>Say Hello to Handlebars</h1>
+
+    <ul class="tweets">
+      <script id="template" type="text/x-handlebars-template">
+        <!-- template auto excapes html 3x braces to stop escaping-->
+        {{#each this}}
+        <li>
+          <h2>{{fullName author}}</h2>
+          {{#if quote}}
+              <h5>{{quote}}</h5>
+          {{else}}
+              <h5>author has no quote</h5>
+          {{/if}}
+          <p>{{tweet}}</p>          
+        </li>
+        {{/each}}
+      </script>
+    </ul>
+
+    <script>
+      (function(){
+          var data = [
+              {
+                author : { first: "Jim", last: "Lapine", age:52 },
+                tweet : "Sup, dude?",
+                quote: "Never give up, never surrender!"
+              },
+              {
+                author : { first: "Jeffrey ", last: "Way", age: 28 },
+                tweet : "Ditto!",
+                quote: "Be excellant to each other."
+              },
+              {
+                author : { first: "Issac ", last: "Swatrz", age: 73 },
+                tweet : "Huh!"
+              }              
+          ];
+          
+          Handlebars.registerHelper('fullName', function(author){
+              return author.first + " " + author.last + " - " + author.age;
+          });
+
+          var template = Handlebars.compile( $('#template').html() );
+          var temp = template(data);
+          $('ul.tweets').append(temp);
+        
+      })();
+    </script>
+</body>
+</html>

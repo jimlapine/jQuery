@@ -1,0 +1,39 @@
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+  </script>
+  <script type="text/javascript" src="searchJson.js"></script>
+  <title>Plugin Development</title>
+
+  <style>
+    ul li {color: red;}
+    .emphasis {font-weight: bold;}
+    .deemphasis {font-style: italic; color: black; display: ;}
+  </style>
+  
+  <script>
+    $(document).ready(function() {
+
+      $('#results0').searchJson({
+        wrapEachWith: '<span style=\'color:blue;display: block;\'></span>',
+        limit: 10,
+        refresh: 4000,
+        transition: 'none'
+      });
+
+      //access instance data
+      console.log($.data($('#results0')[0], 'searchJson'));
+
+      var instance = $.data($('#results0')[0], 'searchJson');
+      //override URL
+      instance.url = 'https://jsonplaceholder.typicode.com/posts';
+    });
+  </script>
+</head>
+<body>
+    <h1>Plugin Development</h1>
+    <h2>json Search</h2>
+    <ul id="results0"></ul>
+
+</body>
+</html>

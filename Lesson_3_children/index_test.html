@@ -1,0 +1,49 @@
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+  </script>
+  <title></title>
+  <style>
+    .emphasis2 {  font-weight: bold; color: blue}
+      .emphasis { font-weight: bold; color: red; }
+      .deemphasis { font-style: italic; color: black; }
+      .deemphasis2 { color: green;}
+      .deemphasis3 { font-style: italic; color: yellow }
+  </style>
+  <script>
+    $(document).ready(function() {
+      // Find the first li in the ul, there are three ul's and 3 first li's
+      //$('ul').children('li:first-child').addClass('emphasis2'); // same as below
+      //$('ul').children('li:nth-child(1)').addClass('emphasis2'); // same as below
+      //$('ul').children('li').first().addClass('emphasis2');
+      //$('li').first().addClass('emphasis2'); // first the first li
+      //$('li').eq(2).addClass('emphasis2'); // first the 3rd li
+      //$('ul').eq(1).addClass('deemphasis2'); // 2nd ul
+      $('li:even').addClass('emphasis2'); // even number list items
+      $('li:odd').addClass('deemphasis2'); // even number list items 
+
+    });
+  </script>
+</head>
+<body>
+  <div class='emphasis'>
+    <ul>
+      <li>Hello 1</li>
+      <li>Hello 2</li>
+      <li>
+          <ul>
+              <li>Hello from the nest</li>
+              <li>
+                  <ul>
+                      <li>Hello from the nest's nest!
+                  </ul>
+              </li>
+          </ul>
+      </li>
+      <li>Hello 3</li>
+      <li>Hello 4</li>
+      <li>Hello 5</li>
+    </ul>
+  </div>
+</body>
+</html>

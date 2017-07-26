@@ -1,0 +1,74 @@
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+  </script>
+  <title>Deferreds 2</title>
+  <style>
+    .emphasis2 {  font-weight: bold; color: blue !important;}
+      ul.emphasis li { font-weight: bold; color: red; }
+      .deemphasis { font-style: italic; color: black; }
+      .deemphasis2 { color: green !important; }
+      .deemphasis3 { font-style: italic; color: yellow !important; }
+  </style>
+</head>
+<body>
+<h1>Deferreds</h1>
+<a href="index_example2.html">index_example2</a>
+<div id="results"></div>
+<script type="text/javascript">
+(function(){
+  $.searchJson = function(search){
+    // var dfd = new $.Deferred();
+
+    // $.ajax({
+    //   url: "https://jsonplaceholder.typicode.com/comments",
+    //   data: { postId: search },
+    //   dataType: "jsonp",
+    //   success: dfd.resolve, // don't resolve immediately
+    //   error: dfd.reject
+    // });
+
+    // return dfd.promise(); // return a promise that notification will take place
+
+    return $.ajax({ // ajax returns a deferred promise
+      url: "https://jsonplaceholder.typicode.com/comments",
+      data: { postId: search },
+      dataType: "jsonp",
+    }).promise();    
+  }
+
+
+
+})();
+  var search = $.searchJson('2');
+
+  search.then(
+    function(results){
+        $.each(results, function(key, val){
+          $('#results').append("<ul>");
+          $('#results').append("<li>" + val.email);
+          $('#results').append("<li>" +val.body + "</li></li>");
+          $('#results').append("</ul>");
+        });
+        
+        console.log(results);
+    },
+    function(){
+      $('#results').append("<h2 style='color:red'>BROKEN 1st</h2>");
+    });
+
+  search.then(
+    function(results){
+        $.each(results, function(key, val){
+          $('#results').append("<h2>" + val.email + "</h2>");
+          $('#results').append("<h3>" +val.body + "</h3>");
+        });
+        
+        console.log(results);
+    },
+    function(){
+      $('#results').append("<h2 style='color:red'>BROKEN 2nd</h2>");
+    });  
+</script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Creating and Appending Content to the DOM</title>
+        <style>
+            blockquote {
+                float: right;
+                color: red;
+                font-size: 2em;
+                width: 35%;
+                text-align: center;
+              }
+              article {
+                width: 600px;
+                margin: auto;
+              }
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <article>
+             <h1>Creating and Appending Content to the DOM</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis 
+            egestas accumsan tortor, non blandit urna gravida vitae. Suspendisse
+            ut finibus nulla. Donec ex enim, lobortis id velit non, fringilla 
+            tristique lacus. Cras sit amet varius nisi. Suspendisse
+                interdum et leo sit amet tincidunt. Nullam augue diam, volutpat
+                sit amet molestie vel, fringilla in orci.</P>
+            <p> <span class='co'>Ut sollicitudin sapien eu porttitor euismod.
+            </span>
+Donec volutpat sagittis nunc quis vehicula. Quisque lobortis, nunc ultrices 
+euismod viverra, mi urna aliquam lectus, ut aliquam ante dolor sit amet dui.
+Vivamus id nulla at lectus scelerisque
+                varius. Pellentesque tincidunt, dui aliquet placerat tempor,
+                nulla ex vulputate odio, at dignissim lectus ligula eget mass
+                a. Donec rhoncus urna et viverra interdum. Donec volutpat sagittis nunc quis vehicula. Quisque lobortis, nunc ultrices euismod viverra,
+                mi urna aliquam lectus, ut aliquam ante dolor sit amet dui. Vivamus id nulla at lectus scelerisque varius. Pellentesque tincidunt, dui aliquet placerat tempor, nulla ex vulputate odio, at dignissim lectus ligula eget massa. Donec rhoncus urna et viverra
+                interdum. Donec volutpat sagittis nunc quis vehicula. Quisque lobortis, nunc ultrices euismod viverra, mi urna aliquam lectus, ut aliquam ante dolor sit amet dui. Vivamus id nulla at lectus scelerisque varius. Pellentesque tincidunt, dui aliquet placerat
+                tempor, nulla ex vulputate odio, at dignissim lectus ligula eget massa. Donec rhoncus urna et viverra interdum. Donec volutpat sagittis nunc quis vehicula. Quisque lobortis, nunc ultrices euismod viverra, mi urna aliquam lectus, ut aliquam ante dolor
+                sit amet dui. Vivamus id nulla at lectus scelerisque varius. Pellentesque tincidunt, dui aliquet placerat tempor, nulla ex vulputate odio, at dignissim lectus ligula eget massa. Donec rhoncus urna et viverra interdum.</p>
+            <p> <span class='co'>Ut sollicitudin sapien eu porttitor euismod.</span>
+Donec volutpat sagittis nunc quis vehicula. Quisque lobortis, nunc ultrices euismod viverra, mi urna aliquam lectus, ut aliquam ante dolor sit amet dui. Vivamus id nulla at lectus scelerisque
+                varius. Pellentesque tincidunt, dui aliquet placerat tempor, nulla ex vulputate odio, at dignissim lectus ligula eget massa. Donec rhoncus urna et viverra interdum.</p>
+        </article>
+        <script>
+            (function(){
+              /*
+              //to the end
+              $('article').append('Hello from javascript!');
+              //at the beginning
+              $('article').prepend('Hey from javascript!');
+              //at a specific point
+              $('h1').after('After the H1 from JS!');
+              //after the first paragraph
+              $('p').first().before('before the first p from JS!');
+              //sloppy to add HTML this way
+              $('<h2 class=myclass>Add a h2 dynamically</h2>').appendTo('article');
+              //better to break up the job and not include too much HTML in your JS
+              $('<h2></h2>', {
+                text: 'Hey did this work?',
+                class: 'myClass2',
+              }).appendTo('article');
+              $('<h2></h2>', {
+                text: 'Hey will this work?',
+                class: 'myClass2',
+              }).prependTo('article');
+              //it's written like you would speak it, take the h2 I've defined and
+              //insertAfter the h1
+              //If you using a element vs. a fragment use After
+              $('<h2></h2>', {
+                text: 'Hey will show up after the h1?',
+                class: 'myClass2',
+              }).insertAfter('h1');
+        
+              $('<h2></h2>', {
+                text: 'Hey will show up before the 2nd paragraph?',
+                class: 'myClass2',
+              }).insertBefore('p:nth-child(2)');
+        
+              //moving content
+              $('h1').appendTo('article');
+              //after each paragraph, append the h1
+              //$('p').after($('h1'));
+              //after only the first paragraph
+              $('p').eq(0).after($('h1'));
+        
+              // this does the same this using a function
+              //find the first paragraph, return the previous element and append it
+              //since it exists it moves it
+              //$('p').eq(0).after(function(){
+              //  return $(this).prev();
+              //}
+              */
+        
+                //$(this).closest('p').prepend('cc')
+            //grab each span with class of co
+        
+            //var co = $('span.co').each(function(){
+              //cache it in variable
+        		//	var $this = $(this);
+              //create a blockquote
+        		//	$('<blockquote></blockquote>', {
+                //assign a class
+            //    class: 'co',
+                //assign the text = the span co
+            //    text: $this.text()
+                //prependTo the closest paragraph
+        		//	}).prependTo($this.closest('p'));
+        		//}
+        
+        //this improves the processing so jQuery doesn't have to dig into it's selector engine
+            var co = $('article').find('span.co').each(function(){
+              //cache it in variable
+        			var $this = $(this);
+              //create a blockquote
+        			$('<blockquote></blockquote>', {
+                //assign a class
+                class: 'co',
+                //assign the text = the span co
+                text: $this.text()
+                //prependTo the closest paragraph
+        			}).prependTo($this.closest('p'));
+        		}
+        		);
+            })();
+        </script>
+    </body>
+</html>

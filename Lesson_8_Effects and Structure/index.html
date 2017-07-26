@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Effects and Structure</title>
+        <style>
+          /*if js added by jquery script enabled and hide form*/
+          .js #contact{
+            position: absolute;
+            top:0;
+            width: inherit;
+            display: none;
+          }
+          blockquote {
+              float: right;
+              color: red;
+              font-size: 2em;
+              width: 35%;
+              text-align: center;
+            }
+          article {
+            width: 600px;
+            margin: auto;
+          }
+          #contact {
+              background: #CCCCCC;
+              width: 500px;
+          }
+          #contact h2 {
+            margin-left: 1em;
+          }
+          #contact li {
+              list-style: none;
+              line-height: 2em;
+          }
+          #contact label {
+              display: block;
+              font-weight: bold;
+          }
+          #contact .close {
+              display: block;
+              text-align: right;
+              cursor: pointer;
+              font-size: 2em;
+              background-color: #EEEEEE;
+              width: 1em;
+              margin-left: auto;
+          }
+          #contact input, textarea {
+              width: 90%;
+              resize: none;
+              line-height: 2em;
+          }
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <article>
+             <h1>Effects and Structure</h1>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis egestas accumsan tortor, non blandit urna gravida vitae. Suspendisse ut finibus nulla. Donec ex enim, lobortis id velit non, fringilla tristique lacus. Cras sit amet varius nisi. Suspendisse
+                interdum et leo sit amet tincidunt. Nullam augue diam, volutpat sit amet molestie vel, fringilla in orci.</P>
+            <p> <span class='co'>Ut sollicitudin sapien eu porttitor euismod.
+            </span>
+Donec volutpat sagittis nunc quis vehicula. Quisque lobortis, nunc ultrices euismod viverra, mi urna aliquam lectus, ut aliquam ante dolor sit amet dui. Vivamus id nulla at lectus scelerisque varius. Pellentesque tincidunt, dui aliquet
+                placerat tempor, nulla ex vulputate odio, at dignissim lectus ligula eget mass a. Donec rhoncus urna et viverra interdum. Donec volutpat sagittis nunc quis vehicula. Quisque lobortis, nunc ultrices euismod viverra, mi urna aliquam lectus, ut aliquam ante
+                dolor sit amet dui. Vivamus id nulla at lectus scelerisque varius. Pellentesque tincidunt, dui aliquet placerat tempor, nulla ex vulputate odio, at dignissim lectus ligula eget massa. Donec rhoncus urna et viverra interdum. Donec volutpat sagittis nunc
+                quis vehicula. Quisque lobortis, nunc ultrices euismod viverra, mi urna aliquam lectus, ut aliquam ante dolor sit amet dui. Vivamus id nulla at lectus scelerisque varius. Pellentesque tincidunt, dui aliquet placerat tempor, nulla ex vulputate odio, at
+                dignissim lectus ligula eget massa. Donec rhoncus urna et viverra interdum. Donec volutpat sagittis nunc quis vehicula. Quisque lobortis, nunc ultrices euismod viverra, mi urna aliquam lectus, ut aliquam ante dolor sit amet dui. Vivamus id nulla at lectus
+                scelerisque varius. Pellentesque tincidunt, dui aliquet placerat tempor, nulla ex vulputate odio, at dignissim lectus ligula eget massa. Donec rhoncus urna et viverra interdum.</p>
+
+            <div id="contact">
+                <h2>Contact me</h2>
+                <form action="#">
+                    <ul>
+                        <li>
+                            <label for="name">Name:</label>
+                            <input name="name" id="name" />
+                        </li>
+                        <li>
+                            <label for="email">Email Address:</label>
+                            <input name="email" id="email" />
+                        </li>
+                        <li>
+                            <label for="comments">What's up?</label>
+                            <textarea rows="10"></textarea>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </article>
+
+        <script>
+            (function(){
+              $('html').addClass('js');
+              //create an object literal
+              var contactForm = {
+                //internal var for contact form
+                container: $('#contact'),
+                config: {
+                  effect: 'slideToggle',
+                  speed: 500
+                },
+                //init function
+                init: function(config) {
+                  //allows user to extend and config our config
+                  $.extend(this.config, config);
+                  //create a button, pass an object to define it
+                  $('<button></button', {
+                    text: 'Contact Me'
+                  })
+                  .insertAfter('article p:nth-last-child(2)')
+                  .on('click', this.show);
+                },
+                show: function() {
+                  var cf = contactForm,
+                  container = cf.container,
+                  config = cf.config;
+                  //make sure form is hdden before showing
+                  if(container.is(':hidden')){
+                    //call close which adds our button send the container as this
+                    cf.close.call(contactForm.container);
+                    //call my confured effect and speed
+                    container[config.effect](config.speed);
+                  }
+                },
+                close: function(){
+                  var cf = contactForm,
+                  container = cf.container,
+                  config = cf.config;
+                  //this refers to the contact div, cache it
+                  var $contact = $(this); //contact form
+
+                  //Make sure we only have one close.
+                  //length will be zero if span doesn't exist.
+                  if ($contact.find('span.close').length) return;
+
+                  //console.log('this: ', contact);
+                  $('<span class=close>X</span>')
+                    .prependTo($contact)
+                    .on('click', function(){
+                      //call my confured effect and speed
+                      container[config.effect](config.speed);
+                    });
+                }
+              };
+
+              contactForm.init({
+                //Allow users to pass in effects
+                effect: 'fadeToggle',
+                speed: 2000,
+              });
+            })();
+        </script>
+    </body>
+</html>

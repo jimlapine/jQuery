@@ -1,0 +1,87 @@
+<html>
+<head>
+  <title>Communicating with the server side</title>
+  <style type="text/css">
+    textarea{
+      resize: none;
+    }
+    .high {
+      font-weight: bold;
+      padding: 0 px;
+      margin: 0 px;
+    }
+    h2 {
+        color: blue;
+      }
+    h5 {
+        color:red;
+    }
+    ul li {
+        margin-top: 2em;
+        line-height: .5em;
+        list-style-type: none;
+    }
+    .emphasis {
+      color: green;
+    }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Communicating with the server side</h1>
+
+    <h2>Something to save</h2>
+    <form action="#">
+      <table>
+        <tr>
+          <th>Name:</th>
+          <td><input type="input" name="name"></td>
+        </tr>
+        <tr>
+          <th>Content:</th>
+          <td><textarea name="content" id="content" cols="30" rows="10"></textarea></td>
+        </tr>
+      </table>
+              
+      <p><button>Save</button></p>
+    </form>
+
+    <script>
+      (function(){
+
+        function decodeEntities(encodedString) {
+            var textArea = document.createElement('textarea');
+            var retVal = '';
+            textArea.innerHTML = encodedString;
+            retVal = textArea.value;
+            return textArea.value;
+        }
+
+        $.post('load.aspx', $(this).serialize(), function(data){
+            var results = data.split('\n');
+            results.forEach(function(item, indx){
+              var entry = item.split(':');
+              if(entry[0] != ''){
+                if(entry[0] == 'Name'){
+                  $('form').find("input[name='name']").val(decodeEntities(entry[1]));
+                }
+                if(entry[0] == 'Content'){
+                  $('form').find("textarea[name='content']").val(decodeEntities(entry[1]));
+                }                
+              }
+            });
+        });
+
+        /// listen for click
+        $('form').on('submit', function(e){
+          var formContent = $(this).serialize();
+          console.log($(this).serialize()); // Serialize form content into Key Value Pairs
+          $.post('save.aspx', $(this).serialize(), function(data){
+            console.log('Response: \n%s', data);
+          });
+          e.preventDefault();
+        });
+      })();
+    </script>
+</body>
+</html>

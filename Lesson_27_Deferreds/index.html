@@ -1,0 +1,69 @@
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+  </script>
+  <title>Deferreds</title>
+  <style>
+    .emphasis2 {  font-weight: bold; color: blue !important;}
+      ul.emphasis li { font-weight: bold; color: red; }
+      .deemphasis { font-style: italic; color: black; }
+      .deemphasis2 { color: green !important; }
+      .deemphasis3 { font-style: italic; color: yellow !important; }
+  </style>
+</head>
+<body>
+<h1>Deferreds</h1>
+<a href="index_example.html">index_example</a>
+<script type="text/javascript">
+(function(){
+  var myVar;
+  var setVal = function() {
+    var deferred = new $.Deferred();
+
+    setTimeout(function(){
+      myVar = "myValue";
+      // deferred.reject(); //to be used when you want deferred to fail
+      deferred.resolve(); //to be used when you want deferred to resolve
+    },2000);
+
+    return deferred.promise(); // I promise to let you know when I',m done
+  };
+
+//run when done
+  setVal().done(function(){
+    //console.log('all done: ' + myVar);
+  });
+
+//run when failed  
+  setVal().fail(function(){
+    //console.log('failed: ' + myVar);
+  });
+
+//run always
+  setVal().always(function(){
+    //console.log('always: ' + myVar);
+  });
+
+//chaining
+  setVal().done(function(){
+    //console.log('all done: ' + myVar);
+  }).fail(function(){
+    //console.log('failed: ' + myVar);
+  });
+
+//Then
+  setVal().then(
+    //resolves
+    function(){
+      console.log('all done: ' + myVar);
+    },
+    //fails
+    function(){
+      console.log('failed: ' + myVar);
+    }
+  );
+})();
+
+</script>
+</body>
+</html>

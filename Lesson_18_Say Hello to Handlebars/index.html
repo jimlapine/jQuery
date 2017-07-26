@@ -1,0 +1,72 @@
+<html>
+<head>
+  <title>Hello to Handlebars</title>
+  <style>
+  h2 span {
+    color: gray; font-size: .8eml
+  }
+    ul li {
+      margin-top: 2em;
+      line-height: .5em;
+      list-style-type: none;
+    }
+    .emphasis {color: green;}
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.js"></script>
+</head>
+<body>
+    <h1>Hello to Handlebars</h1>
+
+    <ul class="tweets">
+      <script id="template" type="text/x-handlebars-template">
+        <!--each for obj passed in, html os auto escapes unless wrapped in 3 {{{ x }}} -->
+        {{#each this}}
+          <li>
+              <!--#if checks for the existance of data -->
+              <h2>{{fullName author }} </h2>
+
+              <p>{{tweet}}</p>
+              <!-- unless a quote is provided
+              {{#unless quote}}
+                <h5>author does not have a quote.</h5>
+              {{/unless}}
+               -->
+              {{#if quote}}
+                <h5>{{quote}}</h5>
+              {{else}}
+                <h5>Author does not have a quote.</h5>
+              {{/if}}
+          </li>
+        <!-- End of each -->
+        {{/each}}
+      </script>
+    </ul>
+
+    <script>
+      (function(){
+        var data = [
+          {
+              author: {first: 'Jeffrey', last: "Way", age:27 },
+              tweet: '30 Days to Learn jQuery Rocks',
+              quote: "Sup, dudes?"
+          },
+          {
+              author: {first: 'Jim', last: "Lapine", age:52 },
+              tweet: 'Rocks The House',
+              age: 52,
+          }
+        ]
+
+        Handlebars.registerHelper('fullName', function(author){
+            return author.first + ' ' + author.last + "- " + author.age;
+        });
+
+        var template = Handlebars.compile($('#template').html());
+        var temp = template(data);
+
+        $('ul.tweets').append(temp);
+      })();
+    </script>
+</body>
+</html>

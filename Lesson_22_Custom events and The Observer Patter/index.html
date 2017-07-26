@@ -1,0 +1,83 @@
+<html>
+<head>
+  <title>Custom events and The Observer Pattern</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <style type="text/css">
+    h2 {
+      color: DimGray;
+    }
+    li {
+      font-style: italic;
+      list-style: none;
+      margin-left: 2em;
+    }
+  </style>
+</head>
+<body>
+    <h1>Custom events and The Observer Pattern</h1>
+
+    <ul class="tweets">
+      <script id="template" type="text/x-handlebars-template">
+        <!-- template auto excapes html 3x braces to stop escaping-->
+        {{#each this}}
+        <li>
+          <h2>{{fullName author}}</h2>
+          {{#if quote}}
+              <h5>{{quote}}</h5>
+          {{else}}
+              <h5>author has no quote</h5>
+          {{/if}}
+          <p>{{tweet}}</p>          
+        </li>
+        {{/each}}
+      </script>
+    </ul>
+    
+    <script>
+    //Insures that $ refers to jQuery which is passed in as function parameter
+      (function($){
+        var obj = $({});
+
+        $.each({
+          trigger: 'publish',
+          on: 'subscribe',
+          off: 'unsubscribe'
+        }, function(key, val){
+          //using array notation allow us us to use 'publish', 'subscribe', unsubscribe
+          jQuery[val]  = function(){
+            //using the array notation allow us us to use 'trigger', 'on', off
+            //console.log('arguments: ', arguments);
+            obj[key].apply(obj, arguments);
+          }
+        });
+
+        //console.dir(obj);
+        //Asynchronous call 
+        $.getJSON("https://jsonplaceholder.typicode.com/posts", function (json) {
+          console.log(json);
+          //$(document).trigger('json/result', json); // publish
+          $.publish('json/result', json);
+        });
+11
+        $.subscribe('json/result', function(e, results) {
+          //console.log('results: ', arguments);
+          $('body').html(
+              //use map when you want to modify array, .each when you want to exec a function
+              $.map(arguments, function(obj, index) {
+                //return obj.userId;              
+                if(obj.body != undefined){
+                  return "<h2>" + obj.title + ":</h2>" +
+                    "<li>" + obj.body + "</li></li>";
+                }
+              }).join('') // turns array in to string
+            );
+        });
+
+        //e is the event
+        //$(document).on('json/result', function(e, json) { //subscript
+        //  console.log(json);
+        //});
+      })(jQuery);
+    </script>
+</body>
+</html>

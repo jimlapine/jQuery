@@ -1,0 +1,95 @@
+<html>
+<head>
+  <title>.Net and jQuery</title>
+  <style type="text/css">
+    textarea{
+      resize: none;
+    }
+    div.scroll {
+      height: 600;
+      overflow-x: hidden;
+      overflow-y: visible;
+    }
+    .high {
+      font-weight: bold;
+      padding: 0 px;
+      margin: 0 px;
+    }
+    h2 {
+        color: blue;
+      }
+    h2.error {
+        color: red;
+      }      
+    h3 {
+        color:grey;
+    }      
+    ul li {
+        margin-top: 2em;
+        line-height: .5em;
+        list-style-type: bullet
+    }
+    .emphasis {
+      color: green;
+    }
+  </style>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+</head>
+<body>
+    <h1>.Net and jQuery</h1>
+
+  <div id="dialog" title="Working">
+    <p>Fetching Your Data</p>
+  </div>
+
+    <h2>Search for Name</h2>
+    <form action="#">
+      <table>
+        <tr>
+          <th>Last Name:</th>
+          <td><input type="input" name="PersonLastName"></td>
+        </tr>
+      </table>
+              
+    <p><button>Search</button></p>
+    <br/>
+    <div class="scroll">
+      <div id="noResults"></div>
+
+      <ul class="results">
+        <script id="template" type="text/x-handlebars-template">
+          <!-- template auto excapes html 3x braces to stop escaping-->
+          <div class="data">
+            {{#each this}}
+            <li>
+              <h2>{{fullName this}}</h2>
+              {{#if EmailAddress1}}
+                  <a href="mailto:{{EmailAddress1}}">{{EmailAddress1}}</a>          
+              {{/if}}
+              <h3>{{PhoneNumber}}</h3>          
+              <h3>{{AddressLine1}}</h3>  
+              <h3>{{City}}</h3> 
+              <h3>{{StateProvinceCode}}</h3> 
+              <h3>{{PostalCode}}</h3> 
+            </li>
+            {{/each}}
+          </div>
+        </script>
+      </ul>
+    <div>      
+    </form>
+
+<!--     <script>
+      (function(){
+        Handlebars.registerHelper('fullName', function(data){
+              return data.LastName + (data.MiddleName != undefined ? " " + data.MiddleName : "") + " , " + data.FirstName;
+          });
+        })();
+    </script> -->
+
+    <script type="text/javascript" src="scripts.js"></script>
+</body>
+</html>

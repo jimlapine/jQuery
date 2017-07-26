@@ -1,0 +1,32 @@
+body {
+  width: 500px;
+  margin: auto;
+  text-align: center;
+}
+
+dl {
+
+}
+
+dt {
+  color: red;
+  cursor: pointer;
+  font-weight: bold;
+  line-height: 2em;
+  background: #e3e3e3;
+  border-bottom: 1px solid black;
+  border-top: 1px solid white;
+}
+
+dd {
+  margin: 0px;
+  padding: 1em 0;
+}
+
+dt:first-child {
+  border-top: none;
+}
+
+dt:nth-last-child(2) { <!--Last child is the last dd so we select this way-->
+  border-bottom: none;
+}

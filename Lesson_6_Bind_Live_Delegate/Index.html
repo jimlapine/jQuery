@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Bind...Live...Delegate..On..Dang That's Confusing</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <h1>jQuery Events: Bind...Live...Delegate..On..Dang That's Confusing</h1>
+    <div class="container">
+      <h2>Click me!</h2>
+      <h2>Click me!</h2>
+    </div>
+    <script>
+    (function(){
+      /*
+      $('h2').click(function(){
+        console.log('clicked');
+        //clones will have no click events, since the click event is bound when page loads
+        //var clone = $(this).clone().appendTo('body');
+        //clones will have no click events, unless you specify true in clone method
+        var clone = $(this).clone(true).appendTo('body');
+        console.log(clone);
+      */
+      //Live is deprecated use on to implement event delgation, so only one event is attached to the document
+      //and filtered by h2, this is attached to the document
+      /*
+      $(document).on('click', 'h2' , function(){
+        console.log('clicked');
+        var clone = $(this).clone().appendTo('body');
+        console.log(clone);
+      });
+      */
+      //filtered by container, this is attached to the document
+      $('div.container').on('click', 'h2' , function(){
+        console.log('clicked');
+        //Append to container not to body
+        var clone = $(this).clone().appendTo('div.container');
+        console.log(clone);
+      });
+    })();
+    </script>
+  </body>
+</html>

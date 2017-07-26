@@ -1,0 +1,81 @@
+<html>
+<head>
+  <title>jQuery Templating</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.js"></script>
+  <style>
+    h2 {
+        color: blue;
+      }
+    h5 {
+        color:red;
+        line-height: 1em;
+    }
+    ul li {
+        margin-top: 2em;
+        line-height: 1em;
+        list-style-type: none;
+    }
+    .emphasis {
+      color: green;
+    }
+  </style>
+
+</head>
+<body>
+    <h1>jQuery Templating</h1>
+
+    <ul class="tweets">
+      <script id="template" type="text/x-handlebars-template">
+        <!-- template auto excapes html 3x braces to stop escaping-->
+        {{#each this}}
+        <li>
+          <h2>{{name}}</h2>
+          {{#if email}}
+              <h5>{{email}}</h5>
+          {{else}}
+              <h5>author has no email</h5>
+          {{/if}}
+          <p>{{body}}</p>
+        </li>
+        {{/each}}
+      </script>
+    </ul>
+
+    <script>
+      (function(){
+        var Twitter = {
+          init: function(){
+            //this refers to twitter objects
+            this.url = "https://jsonplaceholder.typicode.com/comments?callback=?";
+            this.fetch();
+          },
+          fetch: function(){
+            var self = this; // store reference to parent in self.
+            $.getJSON(this.url, function (json) {
+                //console.log(json);
+                self.results = $.map(json, function(obj) {
+                  return {
+                    name: obj.name,
+                    email: obj.email,
+                    body: obj.body,
+                  }
+                });
+
+              self.attachTemplate();
+            });
+          },
+          attachTemplate: function(){
+            var self = this; // store reference to parent in self.
+            var template = Handlebars.compile( $('#template').html() );
+            var temp = template(self.results);
+            //console.log(self.results);
+            $('ul.tweets').append(temp);
+          }
+        }
+
+        Twitter.init();
+      })();
+    </script>
+</body>
+</html>

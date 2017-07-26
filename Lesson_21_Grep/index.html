@@ -1,0 +1,51 @@
+<html>
+<head>
+  <title>jQuery Grep</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>jQuery Grep</h1>
+
+
+    <script>
+      (function(){
+          var arr = [1,2,3,4,5,6,7,8,9,10];
+          //grep is really a filter
+          var newarr = $.grep(arr, function(val, index){
+            //only returns items greater than 5
+              return val > 5;
+          });
+          console.log(newarr);
+
+          var arr2 = [
+              {
+                first:"Jim",
+                last: "Lapine",
+              },
+              {
+                first:"Jeffrey",
+                last: "Way",
+              },   
+              {
+                first:"Iassic",
+                last: "Asimov",
+              },
+              {
+                first:"Carl",
+                last: "Sagan",
+              }, 
+              {
+                first:"Lynda",
+                last: "Lapine",
+              },                           
+          ];
+          //grep is really a filter
+          var newarr2 = $.grep(arr2, function(val, index){
+            //only returns val["last"] == Lapine
+              return val.last == "Lapine";
+          });
+          console.log(newarr2);
+      })();
+    </script>
+</body>
+</html>

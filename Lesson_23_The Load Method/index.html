@@ -1,0 +1,47 @@
+<html>
+<head>
+  <title>The Load Method</title>
+  <style type="text/css">
+    .high {
+      font-weight: bold;
+      padding: 0 px;
+      margin: 0 px;
+    }
+    h2 {
+        color: blue;
+      }
+    h5 {
+        color:red;
+    }
+    ul li {
+        margin-top: 2em;
+        line-height: .5em;
+        list-style-type: none;
+    }
+    .emphasis {
+      color: green;
+    }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>The Load Method</h1>
+    <p class="high">Menu: </p>
+      <a data-sec=".container" href="about.html">Learn More About Me</a>
+      <br/>
+      <a data-sec="#contactForm" href="contact.html">Contact Me</a>
+    <div class="wrap"></div>
+    <script>
+      (function(){
+        var wrap = $("div.wrap");
+        // load, getJSON, get, post, getScript... all point to $.ajax
+        $("a").on("click", function(e){
+          e.preventDefault();
+          var href = $(this).attr("href");
+          var sec = $(this).data("sec");
+          wrap.load(href + " " + sec); //load the container from the about.html
+        });
+      })();
+    </script>
+</body>
+</html>

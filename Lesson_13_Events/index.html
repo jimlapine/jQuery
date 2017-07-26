@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Jquery Events</title>    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <style type="text/css">
+      .box {
+        width: 400px;
+        background: red;
+        padding: 2em;
+        position: relative;
+        -webkit-transition: border-radius 1s; // css3 transitions
+      }
+      .rounded {
+        border-radius: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Fade Slide Toggle</h1>
+    <div class="box">
+      <h2>Some Content Here!</h2>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus
+        velit ut tristique tristique. Sed feugiat massa id lectus sodales, in
+        vehicula augue condimentum. Cras luctus enim erat, pulvinar molestie
+        enim scelerisque a. Cras sit amet libero id tortor rhoncus dapibus.
+        Aliquam quis rhoncus lorem. Sed feugiat, ex ac accumsan tempor, dolor
+        lorem rutrum mi, eu condimentum sapien libero eget massa. Nulla
+        facilisi. Pellentesque id augue justo.        
+      </p>
+    </div>
+    <p>
+      <button>Fade Slde & Toggle</button>
+    </p>
+    <script>
+    (function(){
+        //Allows speed, easing, and callbackf unction to new fadeSlideToggle
+        jQuery.fn.fadeSlideToggle = function( speed, easing, callback ) {
+          $this = $(this);
+
+          //if we wanted to test for function we could
+          if($.isFunction(callback)) {
+            console.log('is a function');
+          } else {
+            console.log('is not a function');
+          }
+          //Always return your object for chaining, use will expect object return
+          return $this.animate({
+            "position" : "absolute",
+            "height" : "toggle",
+            "opacity" : "toggle"
+          }, speed, easing, callback); 
+          // We do not have () this is a reference to the function to be completed after animation
+        }
+
+      $('button').on('click', function(){ 
+        var $box = $('div.box');                  
+        $box.fadeSlideToggle(1500, 'swing', function(){
+          console.log('Hi');
+        }).addClass('Testing');
+      });
+
+    })();
+    </script>
+  </body>
+</html>

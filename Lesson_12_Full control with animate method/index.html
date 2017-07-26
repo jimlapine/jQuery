@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Jquery Events</title>    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <style type="text/css">
+      .box {
+        width: 400px;
+        background: red;
+        padding: 2em;
+        position: relative;
+        -webkit-transition: border-radius 1s; // css3 transitions
+      }
+      .rounded {
+        border-radius: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Full control with animate method</h1>
+    <div class="box">
+      <h2>Some Content Here!</h2>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus
+        velit ut tristique tristique. Sed feugiat massa id lectus sodales, in
+        vehicula augue condimentum. Cras luctus enim erat, pulvinar molestie
+        enim scelerisque a. Cras sit amet libero id tortor rhoncus dapibus.
+        Aliquam quis rhoncus lorem. Sed feugiat, ex ac accumsan tempor, dolor
+        lorem rutrum mi, eu condimentum sapien libero eget massa. Nulla
+        facilisi. Pellentesque id augue justo.        
+      </p>
+    </div>
+    <p>
+      <button>Center</button>
+    </p>
+    <script>
+    (function(){
+      $('button').on('click', function(){
+          //Add element div makes it more efficiant 
+          var $box = $('div.box'),
+          winWidth = $(window).width() / 2 - $box.outerWidth() / 2, //use outWidth to include padding and margins
+          winHeight = $(window).height() / 2 - $box.outerHeight() / 2
+          
+          //var fontsize = parseInt($box.css('font-size'));
+          //console.log('font-size: ', fontsize); 
+          //console.log('type of: ', typeof fontsize); //string
+          //$box.css("font-size", "25px" );
+          //$box.css("font-size", fontsize += 5);
+          //$box.css('font-size', '+=5'); //Get relative value and add five
+
+          //$box.animate({ //Pass an object to set more than one value
+          //  "font-size": "+=5",
+          //  "width": "+=300",
+          //}, 500, "swing", function(){ // time 1/2 seconds, 'swing or linear for animation type', call back function exec when done
+          //  console.log('completed');
+          //}); 
+          //$box.animate({
+          //  'font-size' : '+=5'
+          //}, {
+          //  duration: 500,
+            //complete: function(){
+            //  console.log('completed');
+            //},
+            //step: function(){ //Call evey iteration of animation
+            //  console.log('Step', this);
+            //},
+          //  queue: function(){
+          //  }
+          //});          
+
+          //$box
+          //  .animate({
+          //    'font-size' : '+=5'
+          //    }, { duration: 500 })
+          //  .animate({'top' : '500'},  {duration:3000, queue: false}); //stacking animates queue true doe one then //the other queue false do them both at the same time
+/*
+          $box
+            .animate({
+              'left' : winWidth,
+              'position' : 'absolute',
+              'border-radius' : 50
+              }, 100)
+              . animate( {
+                  'top' : winHeight             
+                } , { duration: 100, queue: true }
+              );
+*/              
+        $box.addClass('rounded');
+      });
+
+    })();
+    </script>
+  </body>
+</html>

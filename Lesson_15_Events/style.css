@@ -1,0 +1,36 @@
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        height: 700;
+      }
+
+      .slider {
+        width: 600px;
+        height: inherit;
+        overflow: scroll; // hide the overflow to the right and below
+      }
+
+      .slider ul {
+        width: 10000px;
+        list-style-type: none;
+      }
+
+      .slider li {
+        float: left
+      }
+
+      button {
+        margin: 2em;
+        padding: 1em;
+        font-weight: bold;
+        border-radius: 10px;
+      }
+
+      #slider-nav {
+        margin: auto;
+        display: none;
+        width: 50%;        
+      }
